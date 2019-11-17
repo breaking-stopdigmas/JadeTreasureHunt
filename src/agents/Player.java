@@ -67,7 +67,7 @@ public class Player extends Agent{
 			}
 		}
 		
-		return getPos().determineDirectionTo(target);
+		return getPos().determineDirectionTo();
 	}
 	
 	private void eliminateCandidates(String hint){

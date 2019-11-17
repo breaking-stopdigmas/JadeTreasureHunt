@@ -1,5 +1,7 @@
 package util;
 
+import java.util.Scanner;
+
 public class Coord{
 	public int x;
 	public int y;
@@ -34,31 +36,34 @@ public class Coord{
 		}
 	}
 	
-	public Coord[] neighbours(){
-		Coord up = this.clone();
-		up.move("up");
-		Coord down = this.clone();
-		down.move("down");
-		Coord left = this.clone();
-		left.move("left");
-		Coord right = this.clone();
-		right.move("right");
-		Coord[] neighbourhood = {up, down, left, right};
-		return neighbourhood;
-	}
+//	public Coord[] neighbours(){
+//		Coord up = this.clone();
+//		up.move("up");
+//		Coord down = this.clone();
+//		down.move("down");
+//		Coord left = this.clone();
+//		left.move("left");
+//		Coord right = this.clone();
+//		right.move("right");
+//		Coord[] neighbourhood = {up, down, left, right};
+//		return neighbourhood;
+//	}
 	
-	public String determineDirectionTo(Coord target) {
-		Coord newPos = this.clone();
-		Coord[] neighbourhood = this.neighbours();
-		int bestNeighbourIndex = 0;
-		for (int i = 0; i < neighbourhood.length; i++) {
-			if(neighbourhood[i].distanceTo(target)<newPos.distanceTo(target)){
-				newPos = neighbourhood[i];
-				bestNeighbourIndex = i;
-			}
-		}
-		String[] neighbourDirections={"up", "down", "left", "right"};
-		return neighbourDirections[bestNeighbourIndex];
+	public String determineDirectionTo() {//Coord target
+//		Coord newPos = this.clone();
+//		Coord[] neighbourhood = this.neighbours();
+//		int bestNeighbourIndex = 0;
+//		for (int i = 0; i < neighbourhood.length; i++) {
+//			if(neighbourhood[i].distanceTo(target)<newPos.distanceTo(target)){
+//				newPos = neighbourhood[i];
+//				bestNeighbourIndex = i;
+//			}
+//		}
+		Scanner read = new Scanner(System.in);
+		String movement = read.next();
+//		String[] neighbourDirections={"up", "down", "left", "right"};
+//		return neighbourDirections[bestNeighbourIndex];
+		return movement;
 	}
 	
 	public boolean equals(Coord other){
