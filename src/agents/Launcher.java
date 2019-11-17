@@ -8,7 +8,8 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 
 /**
- * @author Aymen Sassi
+ * @author Mateus Augusto Sousa e Silva
+ * 
  */
 public class Launcher {
 	public static void main(String[] args) {

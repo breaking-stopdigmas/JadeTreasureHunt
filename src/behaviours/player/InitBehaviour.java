@@ -5,6 +5,7 @@ import agents.Player;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import util.AgentLogger;
+import java.util.Scanner;
 
 public class InitBehaviour extends OneShotBehaviour {
 	private static final long serialVersionUID = -4395908709321689561L;
@@ -24,8 +25,10 @@ public class InitBehaviour extends OneShotBehaviour {
 		player.initGame();
 		
 		ACLMessage hintRequest = new ACLMessage(ACLMessage.REQUEST);
-		hintRequest.setContent("up");
-		player.move("up");
+		Scanner read = new Scanner(System.in);
+		String movement = read.next();
+		hintRequest.setContent(movement);
+		player.move(movement);
 		hintRequest.addReceiver(GameMaster.IDENTIFIER);
 		player.send(hintRequest);
 	}
