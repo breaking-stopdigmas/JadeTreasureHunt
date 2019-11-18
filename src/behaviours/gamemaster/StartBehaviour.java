@@ -15,8 +15,8 @@ public class StartBehaviour extends OneShotBehaviour {
 	
 	@Override
 	public void action() {
-		// wait 10 seconds before starting game
-		gm.doWait(10000);
+		// wait 5 seconds before starting game
+		gm.doWait(5000);
 		gm.initGame();
 		
 		ACLMessage message = new ACLMessage(ACLMessage.REQUEST);

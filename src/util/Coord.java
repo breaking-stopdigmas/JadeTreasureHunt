@@ -66,9 +66,9 @@ public class Coord{
 		return movement;
 	}
 	
-	public boolean equals(Coord other){
-		return (x == other.x) && (y == other.y);
-	}
+//	public boolean equals(Coord other){
+//		return (x == other.x) && (y == other.y);
+//	}
 	
 	@Override
 	public Coord clone(){

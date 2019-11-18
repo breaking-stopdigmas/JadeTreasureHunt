@@ -42,10 +42,10 @@ public class Player extends Agent{
 	}
 	
 	public void initGame() {
-		setPos(new Coord(5, 5));
+		setPos(new Coord(0, 0));
 		candidates = new ArrayList<Coord>();
-		for (int i = 1; i <= 11; i++) {
-			for (int j = 1; j <= 11; j++) {
+		for (int i = 0; i < 31; i++) {
+			for (int j = 0; j < 31; j++) {
 				candidates.add(new Coord(i, j));
 			}
 		}

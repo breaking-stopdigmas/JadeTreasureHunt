@@ -41,15 +41,17 @@ public class GameMaster extends Agent {
 	
 	public void initGame() {
 		Random generator = new Random();
-		setTreasure(new Coord(generator.nextInt(9)+1, generator.nextInt(9)+1));
-		playerPos = new Coord(5, 5);
+		setTreasure(new Coord(generator.nextInt(30)+1, generator.nextInt(30)+1));
+		playerPos = new Coord(0, 0);
 	}
 
 	public String evaluateProximity(String playerMoveDirection) {
 		Coord newPlayerPos = playerPos.clone();
 		newPlayerPos.move(playerMoveDirection);
 		String hint = "colder";
-		if(newPlayerPos.distanceTo(treasure)==0)
+		if (newPlayerPos.x<0 || newPlayerPos.y<0 || newPlayerPos.x>30 || newPlayerPos.y>30)
+			hint = "wall";
+		else if(newPlayerPos.distanceTo(treasure)==0)
 			hint = "win";
 		else if (newPlayerPos.distanceTo(getTreasure())<playerPos.distanceTo(getTreasure()))
 			hint = "warmer";
