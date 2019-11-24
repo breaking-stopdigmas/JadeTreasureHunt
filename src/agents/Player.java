@@ -20,11 +20,13 @@ public class Player extends Agent{
 	private static final String BEHAVIOUR_INIT = "initialisation";
 	private static final String BEHAVIOUR_PLAY = "jeu";
 	private static final String BEHAVIOUR_END = "end";
-	private static final int LIMIT_GRID = 20;
+	private static final int LIMIT_GRID = 10;
 	
 	private Coord oldPos;
 	private Coord pos;
 	private List<Coord> candidates;
+	private List<Coord> block;
+
 
 	@Override
 	public void setup(){
@@ -44,14 +46,59 @@ public class Player extends Agent{
 	}
 	
 	public void initGame() {
-		setPos(new Coord(0, 0, false));
+		setPos(new Coord(0, 0));
 		candidates = new ArrayList<Coord>();
 		
-		for (int i = 0; i < LIMIT_GRID+1; i++) {
-			for (int j = 0; j < LIMIT_GRID+1; j++) {
-				candidates.add(new Coord(i, j, false));
+		for (int i = 0; i < LIMIT_GRID; i++) {
+			for (int j = 0; j < LIMIT_GRID; j++) {
+				candidates.add(new Coord(i, j));
 			}
 		}
+	}
+	
+	public void createBlocks() {
+		block = new ArrayList<Coord>();
+		
+		block.add(new Coord(1,1));
+		block.add(new Coord(1,2));
+		block.add(new Coord(1,4));
+		block.add(new Coord(1,5));
+		block.add(new Coord(1,6));
+		block.add(new Coord(1,8));
+		block.add(new Coord(2,6));
+		block.add(new Coord(3,1));
+		block.add(new Coord(3,2));
+		block.add(new Coord(3,3));
+		block.add(new Coord(3,4));
+		block.add(new Coord(3,6));
+		block.add(new Coord(3,7));
+		block.add(new Coord(3,8));
+		block.add(new Coord(3,9));
+		block.add(new Coord(4,3));
+		block.add(new Coord(4,9));
+		block.add(new Coord(5,1));
+		block.add(new Coord(5,3));
+		block.add(new Coord(5,5));
+		block.add(new Coord(5,6));
+		block.add(new Coord(5,7));
+		block.add(new Coord(5,8));
+		block.add(new Coord(5,9));
+		block.add(new Coord(6,1));
+		block.add(new Coord(6,3));
+		block.add(new Coord(7,1));
+		block.add(new Coord(7,5));
+		block.add(new Coord(7,7));
+		block.add(new Coord(7,9));
+		block.add(new Coord(8,1));
+		block.add(new Coord(8,2));
+		block.add(new Coord(8,3));
+		block.add(new Coord(8,5));
+		block.add(new Coord(8,7));
+		block.add(new Coord(8,9));
+		block.add(new Coord(9,3));
+		block.add(new Coord(9,6));
+		block.add(new Coord(9,7));
+
 	}
 
 	public String determineNextMove(String hint) {
@@ -101,6 +148,16 @@ public class Player extends Agent{
 	public void move(String direction) {
 		oldPos = getPos().clone();
 		getPos().move(direction);
+		createBlocks();
+		System.out.println(pos);
+		System.out.println(oldPos);
+		System.out.println(block.get(0));
+		System.out.println((pos.x==block.get(0).x && pos.y==block.get(0).y));
+		for(int b=0; b<block.size()-1; b++) {
+			if((pos.x==block.get(b).x && pos.y==block.get(b).y) || pos.x<0 || pos.y<0 || pos.x>LIMIT_GRID || pos.y>LIMIT_GRID) {
+				pos = oldPos;
+			}
+		}
 	}
 
 	public Coord getPos() {

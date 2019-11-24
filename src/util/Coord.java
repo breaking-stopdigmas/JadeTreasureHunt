@@ -5,15 +5,13 @@ import java.util.Scanner;
 public class Coord{
 	public int x;
 	public int y;
-	public boolean block;
 	
-	public Coord(int x, int y, boolean block){
+	public Coord(int x, int y){
 		this.x = x;
 		this.y = y;
-		this.block = block;
 	}
 	public Coord(){
-		this(0, 0, false);
+		this(0, 0);
 	}
 	public double distanceTo(Coord other){
 		int dx = x - other.x;
@@ -75,7 +73,7 @@ public class Coord{
 	
 	@Override
 	public Coord clone(){
-		return new Coord(x, y, false);
+		return new Coord(x, y);
 	}
 	
 	@Override
