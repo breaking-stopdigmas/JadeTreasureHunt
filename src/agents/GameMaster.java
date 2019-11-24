@@ -16,6 +16,7 @@ public class GameMaster extends Agent {
 	private static final String BEHAVIOUR_START = "start";
 	private static final String BEHAVIOUR_PLAY = "play";
 	private static final String BEHAVIOUR_END = "end";
+	private static final int LIMIT_GRID = 20;
 
 	public static AID IDENTIFIER = new AID("game_master", AID.ISLOCALNAME);
 	
@@ -40,16 +41,24 @@ public class GameMaster extends Agent {
 	}
 	
 	public void initGame() {
-		Random generator = new Random();
-		setTreasure(new Coord(generator.nextInt(30)+1, generator.nextInt(30)+1));
-		playerPos = new Coord(0, 0);
+//		Random generator = new Random();
+//		setTreasure(new Coord(generator.nextInt(LIMIT_GRID)+1, generator.nextInt(LIMIT_GRID)+1, false));
+		setTreasure(new Coord(18, 10, false));
+		playerPos = new Coord(0, 0, false);
 	}
 
 	public String evaluateProximity(String playerMoveDirection) {
 		Coord newPlayerPos = playerPos.clone();
 		newPlayerPos.move(playerMoveDirection);
+		
+		if((newPlayerPos.x%2)==1 && (newPlayerPos.y%3==0 || newPlayerPos.y%4==0)) {
+			newPlayerPos.block = true;
+		}
+		
 		String hint = "colder";
-		if (newPlayerPos.x<0 || newPlayerPos.y<0 || newPlayerPos.x>30 || newPlayerPos.y>30)
+		if (newPlayerPos.x<0 || newPlayerPos.y<0 || newPlayerPos.x>LIMIT_GRID || newPlayerPos.y>LIMIT_GRID)
+			hint = "wall";
+		else if (newPlayerPos.block==true)
 			hint = "wall";
 		else if(newPlayerPos.distanceTo(treasure)==0)
 			hint = "win";

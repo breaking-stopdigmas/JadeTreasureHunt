@@ -4,6 +4,7 @@ import util.Coord;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import behaviours.player.EndBehaviour;
 import behaviours.player.PlayBehaviour;
@@ -19,6 +20,7 @@ public class Player extends Agent{
 	private static final String BEHAVIOUR_INIT = "initialisation";
 	private static final String BEHAVIOUR_PLAY = "jeu";
 	private static final String BEHAVIOUR_END = "end";
+	private static final int LIMIT_GRID = 20;
 	
 	private Coord oldPos;
 	private Coord pos;
@@ -42,11 +44,12 @@ public class Player extends Agent{
 	}
 	
 	public void initGame() {
-		setPos(new Coord(0, 0));
+		setPos(new Coord(0, 0, false));
 		candidates = new ArrayList<Coord>();
-		for (int i = 0; i < 31; i++) {
-			for (int j = 0; j < 31; j++) {
-				candidates.add(new Coord(i, j));
+		
+		for (int i = 0; i < LIMIT_GRID+1; i++) {
+			for (int j = 0; j < LIMIT_GRID+1; j++) {
+				candidates.add(new Coord(i, j, false));
 			}
 		}
 	}
