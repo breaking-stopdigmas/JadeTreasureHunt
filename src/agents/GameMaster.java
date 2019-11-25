@@ -25,6 +25,15 @@ public class GameMaster extends Agent {
 	private Coord playerPos;
 	private List<Coord> block;
 	private boolean isBlock = false;
+	private List<String> possibleDirections= new ArrayList<String>();
+	private String toRemove;
+
+	public void constructorPossibleDirections() {
+		possibleDirections.add("up");
+		possibleDirections.add("down");
+		possibleDirections.add("right");
+		possibleDirections.add("left");
+	}
 	
 	public void setup(){
 		FSMBehaviour behaviour = new FSMBehaviour(this);
@@ -90,32 +99,34 @@ public class GameMaster extends Agent {
 	public void initGame() {
 		setTreasure(new Coord(9, 9));
 		playerPos = new Coord(0, 0);
+		constructorPossibleDirections();
 	}
 	
 	public void suggestDirection(String hint, String moviment) {
 		
-//		String[] possibleDirections={"up", "down", "left", "right"};
-		
 		switch(hint){
 		
 		case "wall":
-			if(moviment=="up" || moviment=="down") {
-				System.out.println("You found a wall, go right or left, or come back!");	
-			}else {
-				System.out.println("You found a wall, go up or down, or come back!");	
+			System.out.println("You found a wall. Now you have the following options:");
+
+			for(String m: possibleDirections) {
+				if(m.equals(moviment)) {
+					toRemove = m;
+				}
 			}
+			possibleDirections.remove(toRemove);
+			System.out.println(possibleDirections);
+			
 			break;
-		//if player got warmer, they can remove all
-		//candidates they got farther away from
 		case "warmer":
 			System.out.println("Keep going!");
+			possibleDirections.clear();
+			constructorPossibleDirections();
 			break;
-		//if player got colder, they can remove all
-		//candidates they got closer to
 		case "colder":
-			System.out.println("You are moving away from the treasure, change your path in another direction!");
+			System.out.println("You are moving away from the treasure, change your way to another direction!");
 			break;
-		default: // case "same"
+		default: 
 			System.out.println("Enter a valid command!");
 			break;
 		} 
