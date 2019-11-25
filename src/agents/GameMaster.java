@@ -94,25 +94,29 @@ public class GameMaster extends Agent {
 	
 	public void suggestDirection(String hint, String moviment) {
 		
-		String[] possibleDirections={"up", "down", "left", "right"};
+//		String[] possibleDirections={"up", "down", "left", "right"};
 		
 		switch(hint){
 		
 		case "wall":
-			System.out.println("você encontrou uma parede, siga para outra direção!");
+			if(moviment=="up" || moviment=="down") {
+				System.out.println("You found a wall, go right or left, or come back!");	
+			}else {
+				System.out.println("You found a wall, go up or down, or come back!");	
+			}
 			break;
 		//if player got warmer, they can remove all
 		//candidates they got farther away from
 		case "warmer":
-			System.out.println("continue em frente!");
+			System.out.println("Keep going!");
 			break;
 		//if player got colder, they can remove all
 		//candidates they got closer to
 		case "colder":
-			System.out.println("você está se distanciando do tesouro, mude seu caminho para outra direção!");
+			System.out.println("You are moving away from the treasure, change your path in another direction!");
 			break;
 		default: // case "same"
-			System.out.println("digite um comando válido!");
+			System.out.println("Enter a valid command!");
 			break;
 		} 
 	}
