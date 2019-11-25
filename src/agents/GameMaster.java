@@ -27,13 +27,6 @@ public class GameMaster extends Agent {
 	private boolean isBlock = false;
 	private List<String> possibleDirections= new ArrayList<String>();
 	private String toRemove;
-
-	public void constructorPossibleDirections() {
-		possibleDirections.add("up");
-		possibleDirections.add("down");
-		possibleDirections.add("right");
-		possibleDirections.add("left");
-	}
 	
 	public void setup(){
 		FSMBehaviour behaviour = new FSMBehaviour(this);
@@ -94,6 +87,13 @@ public class GameMaster extends Agent {
 		block.add(new Coord(9,6));
 		block.add(new Coord(9,7));
 
+	}
+	
+	public void constructorPossibleDirections() {
+		possibleDirections.add("up");
+		possibleDirections.add("down");
+		possibleDirections.add("right");
+		possibleDirections.add("left");
 	}
 	
 	public void initGame() {
