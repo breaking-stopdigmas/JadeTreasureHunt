@@ -38,6 +38,7 @@ public class Coord{
 	}
 	
 	public String determineDirectionTo() {
+		@SuppressWarnings("resource")
 		Scanner read = new Scanner(System.in);
 		String movement = read.next();
 		return movement;

@@ -1,6 +1,5 @@
 package agents;
 
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +17,14 @@ public class GameMaster extends Agent {
 	private static final String BEHAVIOUR_START = "start";
 	private static final String BEHAVIOUR_PLAY = "play";
 	private static final String BEHAVIOUR_END = "end";
-	private static final int LIMIT_GRID = 10;
+	private static final int LIMIT_GRID = 9;
 
 	public static AID IDENTIFIER = new AID("game_master", AID.ISLOCALNAME);
 	
 	private Coord treasure;
 	private Coord playerPos;
-	
 	private List<Coord> block;
+	private boolean isBlock = false;
 	
 	public void setup(){
 		FSMBehaviour behaviour = new FSMBehaviour(this);
@@ -89,10 +88,33 @@ public class GameMaster extends Agent {
 	}
 	
 	public void initGame() {
-//		Random generator = new Random();
-//		setTreasure(new Coord(generator.nextInt(LIMIT_GRID)+1, generator.nextInt(LIMIT_GRID)+1, false));
 		setTreasure(new Coord(9, 9));
 		playerPos = new Coord(0, 0);
+	}
+	
+	public void suggestDirection(String hint, String moviment) {
+		
+		String[] possibleDirections={"up", "down", "left", "right"};
+		
+		switch(hint){
+		
+		case "wall":
+			System.out.println("você encontrou uma parede, siga para outra direção!");
+			break;
+		//if player got warmer, they can remove all
+		//candidates they got farther away from
+		case "warmer":
+			System.out.println("continue em frente!");
+			break;
+		//if player got colder, they can remove all
+		//candidates they got closer to
+		case "colder":
+			System.out.println("você está se distanciando do tesouro, mude seu caminho para outra direção!");
+			break;
+		default: // case "same"
+			System.out.println("digite um comando válido!");
+			break;
+		} 
 	}
 	
 	public String evaluateProximity(String playerMoveDirection) {
@@ -103,11 +125,17 @@ public class GameMaster extends Agent {
 		for(int b=0; b<block.size()-1; b++) {
 			if((newPlayerPos.x==block.get(b).x && newPlayerPos.y==block.get(b).y) || newPlayerPos.x<0 || newPlayerPos.y<0 || newPlayerPos.x>LIMIT_GRID || newPlayerPos.y>LIMIT_GRID) {
 				newPlayerPos = playerPos;
+				isBlock = true;
 			}
 		}
 		
 		String hint = "colder";
-		if(newPlayerPos.distanceTo(treasure)==0)
+		
+		if(isBlock) {
+			hint = "wall";
+			isBlock = false;
+		}
+		else if(newPlayerPos.distanceTo(treasure)==0)
 			hint = "win";
 		else if (newPlayerPos.distanceTo(getTreasure())<playerPos.distanceTo(getTreasure()))
 			hint = "warmer";

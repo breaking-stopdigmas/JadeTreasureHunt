@@ -24,7 +24,7 @@ public class PlayBehaviour extends OneShotBehaviour {
 		AgentLogger.log(hintRequest);
 		String playerMoveDirection = hintRequest.getContent();
 		String hint = gm.evaluateProximity(playerMoveDirection);
-		
+		gm.suggestDirection(hint, playerMoveDirection);
 		if(hint.equals("win"))
 			nextState = 0;
 		

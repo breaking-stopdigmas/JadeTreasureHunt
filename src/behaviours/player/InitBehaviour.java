@@ -25,6 +25,7 @@ public class InitBehaviour extends OneShotBehaviour {
 		player.initGame();
 		
 		ACLMessage hintRequest = new ACLMessage(ACLMessage.REQUEST);
+		@SuppressWarnings("resource")
 		Scanner read = new Scanner(System.in);
 		String movement = read.next();
 		hintRequest.setContent(movement);
