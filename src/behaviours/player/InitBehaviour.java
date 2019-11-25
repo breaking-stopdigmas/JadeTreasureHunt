@@ -29,8 +29,6 @@ public class InitBehaviour extends OneShotBehaviour {
 		String movement = read.next();
 		hintRequest.setContent(movement);
 		player.move(movement);
-//		hintRequest.setContent("up");
-//		player.move("up");
 		hintRequest.addReceiver(GameMaster.IDENTIFIER);
 		player.send(hintRequest);
 	}

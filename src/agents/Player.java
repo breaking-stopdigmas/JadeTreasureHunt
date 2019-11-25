@@ -102,57 +102,14 @@ public class Player extends Agent{
 	}
 
 	public String determineNextMove(String hint) {
-		if(hint.equals("win")) return "win";
-		eliminateCandidates(hint);
-		Coord target = candidates.get(0);
-		// if player is on target, they can only be sure they're
-		// on the treasure if it's the only target left
-		if(pos.equals(target)){
-			//if player has found treasure, the win
-			if(candidates.size()==1)
-				return "win";
-			// if not, the player moves on to get more indications
-			else{
-				target = candidates.get(1);
-			}
-		}
-		
+		if(hint.equals("win")) return "win";		
 		return getPos().determineDirectionTo();
-	}
-	
-	private void eliminateCandidates(String hint){
-		List<Coord> toRemove = new ArrayList<Coord>();
-		switch(hint){
-		//if player got warmer, they can remove all
-		//candidates they got farther away from
-		case "warmer":
-			for (Coord c : candidates) {
-				if(getPos().distanceTo(c) > oldPos.distanceTo(c))
-					toRemove.add(c);
-			}
-			break;
-		//if player got colder, they can remove all
-		//candidates they got closer to
-		case "colder":
-			for (Coord c : candidates) {
-				if(getPos().distanceTo(c) < oldPos.distanceTo(c))
-					toRemove.add(c);
-			}
-			break;
-		default: // case "same"
-			break;
-		}
-		candidates.removeAll(toRemove);
 	}
 
 	public void move(String direction) {
 		oldPos = getPos().clone();
 		getPos().move(direction);
 		createBlocks();
-		System.out.println(pos);
-		System.out.println(oldPos);
-		System.out.println(block.get(0));
-		System.out.println((pos.x==block.get(0).x && pos.y==block.get(0).y));
 		for(int b=0; b<block.size()-1; b++) {
 			if((pos.x==block.get(b).x && pos.y==block.get(b).y) || pos.x<0 || pos.y<0 || pos.x>LIMIT_GRID || pos.y>LIMIT_GRID) {
 				pos = oldPos;
